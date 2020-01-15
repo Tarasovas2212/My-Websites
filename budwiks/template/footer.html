@@ -1,0 +1,464 @@
+<div class="map" id="map" style="height: 500px">
+
+    <script>
+        var map;
+
+            // Функция initMap которая отрисует карту на странице
+            function initMap() {
+
+                // В переменной map создаем объект карты GoogleMaps и вешаем эту переменную на <div id="map"></div>
+                map = new google.maps.Map(document.getElementById('map'), {
+                    // При создании объекта карты необходимо указать его свойства
+                    // center - определяем точку на которой карта будет центрироваться
+                    center: {
+                        lat: 50.031209, 
+                        lng: 36.223221
+                    },
+                    // zoom - определяет масштаб. 0 - видно всю платнеу. 18 - видно дома и улицы города.
+                    zoom: 15,
+
+                    // Добавляем свои стили для отображения карты
+                    styles: [
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "hue": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#eb452f"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#2c2c2c"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#606060"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.neighborhood",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#eb452f"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#fff1f1"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "color": "#eb452f"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffd6d6"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#eb452f"
+            }
+        ]
+    }
+]
+                });
+
+                // Создаем маркер на карте
+                var marker = new google.maps.Marker({
+
+                    // Определяем позицию маркера
+                    position: {
+                        lat: 50.031209,
+                        lng: 36.223221,
+                    },
+
+                    // Указываем на какой карте он должен появится. (На странице ведь может быть больше одной карты)
+                    map: map,
+
+
+                    // Укажем свою иконку для маркера
+                    icon: 'img/placeholder.svg'
+                });
+
+
+            }
+
+        </script>
+</div>
+
+<footer id="footer">
+    <div class="container">
+        <h2 class="text-center">
+            Контакты
+        </h2>
+        <div class="row text-center">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                        <g fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="10">
+                            <path d="M16 1h32v62H16zM28 5h8M16 51h32M16 9h32" />
+                            <circle stroke-linejoin="bevel" cx="32" cy="57" r="2" />
+                        </g>
+                    </svg>
+                </div>
+                <h3>Телефоны</h3>
+                <div class="item">
+                    <a href="tel:+380997006515">+38 (099) 700 65 15</a>
+                </div>
+                <div class="item">
+                    <a href="tel:+380987006515">+38 (098) 700 65 15</a>
+                </div>
+                <div class="item">
+                    <a href="tel:+380937006515">+38 (093) 700 65 15</a>
+                </div>
+                <div class="item">
+                    <a href="tel:+380577523173">+38 (057) 752 31 73</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                        <g fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="10">
+                            <circle cx="32" cy="22" r="6" />
+                            <path d="M53 22.735C52.948 10.73 43.599 1 32 1s-21 9.73-21 21.735C11 38.271 31.965 63 31.965 63S53.069 38.271 53 22.735z" />
+                        </g>
+                    </svg>
+                </div>
+                <h3>Офис</h3>
+                <address>
+                    <b>ул. Тобольская 42</b> <br>
+                    офис 21
+                </address>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.5 100.5" width="64" height="64">
+                        <path d="M91.129 42.712l-.006-.057a1.514 1.514 0 0 0-.123-.509l-.019-.036a1.512 1.512 0 0 0-.324-.443c-.005-.005-.007-.011-.012-.016l-13.39-12.236V17.203a1.5 1.5 0 0 0-1.5-1.5H62.233L50.805 5.26a1.5 1.5 0 0 0-2.023 0L37.346 15.703H24.657a1.5 1.5 0 0 0-1.5 1.5V28.66L8.94 41.651c-.005.005-.007.011-.012.016a1.512 1.512 0 0 0-.324.443l-.02.037c-.07.157-.11.328-.123.508-.001.02-.005.039-.006.059 0 .016-.005.03-.005.046v50.875c0 .164.033.32.082.468l.018.059a1.5 1.5 0 0 0 .28.462c.007.008.009.018.016.026.006.007.014.011.021.018.049.051.103.096.159.14.025.019.047.042.073.06.066.046.137.083.21.117.018.008.034.021.052.028.181.077.38.121.589.121h79.682a1.5 1.5 0 0 0 1.5-1.5V42.759c.002-.016-.002-.031-.003-.047zm-79.677 3.591l12.133 11.082c.016.016.034.031.051.046L35.392 68.17l-23.94 22.043v-43.91zm26.163 23.898l11.579 10.576a1.496 1.496 0 0 0 2.023.001L62.759 70.25l23.104 21.883H13.796l23.819-21.932zm27.366-1.977l23.153-21.118v43.047L64.981 68.224zm22.947-24.992l-10.674 9.735V33.479l10.674 9.753zM49.792 8.399l7.994 7.304H41.795l7.997-7.304zm24.463 10.304v37.001l-12.542 11.44c-.009.009-.021.012-.03.021-.004.004-.005.01-.009.015L50.207 77.639l-24.05-21.967V18.703h48.098zM23.157 52.932L12.098 42.83l11.059-10.106v20.208z" />
+                        <path d="M50.206 61.105c3.451 0 6.766-1.059 9.585-3.062a1.498 1.498 0 0 0 .354-2.091 1.497 1.497 0 0 0-2.091-.354 13.485 13.485 0 0 1-7.849 2.507c-7.448 0-13.507-6.062-13.507-13.514 0-7.455 6.059-13.52 13.507-13.52 5.455 0 9.848 2.721 12.108 7.469v8.136a2.452 2.452 0 0 1-2.453 2.446c-1.286 0-2.491-1.203-2.594-2.522a7.574 7.574 0 0 0 .278-2.01c0-4.2-3.421-7.618-7.625-7.618-4.205 0-7.625 3.417-7.625 7.618 0 4.201 3.42 7.618 7.625 7.618a7.6 7.6 0 0 0 5.518-2.376c1.046 1.37 2.669 2.29 4.422 2.29a5.456 5.456 0 0 0 5.453-5.446V38.19l-.002-.021c-.001-.044-.009-.088-.013-.132-.006-.056-.009-.113-.021-.167-.005-.025-.016-.049-.023-.073a1.52 1.52 0 0 0-.071-.213l-.004-.011c-2.688-5.95-8.285-9.502-14.975-9.502-9.102 0-16.507 7.411-16.507 16.52.003 9.106 7.408 16.514 16.51 16.514zm-.285-11.896c-2.55 0-4.625-2.072-4.625-4.618s2.075-4.618 4.625-4.618 4.625 2.071 4.625 4.618-2.075 4.618-4.625 4.618z" /></svg>
+                </div>
+                <h3>Почта</h3>
+                <div class="item">
+                    <a href="mailto:budwiks@gmail.com">budwiks@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="btn-call">
+    <svg class="t651__icon" style="fill:#ffffff;" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 19.3 20.1">
+        <desc>Call</desc>
+        <path d="M4.6 7.6l-.5-.9 2-1.2L4.6 3l-2 1.3-.6-.9 2.9-1.7 2.6 4.1"></path>
+        <path d="M9.9 20.1c-.9 0-1.9-.3-2.9-.9-1.7-1-3.4-2.7-4.7-4.8-3-4.7-3.1-9.2-.3-11l.5.9C.2 5.7.4 9.7 3 13.9c1.2 2 2.8 3.6 4.3 4.5 1.1.6 2.7 1.1 4.1.3l1.9-1.2L12 15l-2 1.2c-1.2.7-2.8.3-3.5-.8l-3.2-5.2c-.7-1.2-.4-2.7.8-3.5l.5.9c-.7.4-.9 1.3-.5 2l3.2 5.2c.4.7 1.5.9 2.2.5l2.8-1.7 2.6 4.1-2.8 1.7c-.7.5-1.4.7-2.2.7zM13.7 11.3l-.9-.3c.4-1.1.2-2.2-.4-3.1-.6-1-1.7-1.6-2.8-1.7l.1-1c1.5.1 2.8.9 3.6 2.1.7 1.2.9 2.7.4 4z"></path>
+        <path d="M16.5 11.9l-1-.3c.5-1.8.2-3.7-.8-5.3-1-1.6-2.7-2.6-4.7-2.9l.1-1c2.2.3 4.2 1.5 5.4 3.3 1.2 1.9 1.6 4.1 1 6.2z"></path>
+        <path d="M18.9 12.5l-1-.3c.7-2.5.2-5.1-1.1-7.2-1.4-2.2-3.7-3.6-6.3-4l.1-1c2.9.4 5.4 2 7 4.4 1.6 2.4 2.1 5.3 1.3 8.1z"></path>
+    </svg>
+</div>
+
+<header class="overlay text-white">
+    <div class="container py-3 ">
+        <div class="row align-items-center text-center">
+            <div class="col-lg mb-5">
+                <div class="logo d-flex align-items-center justify-content-center">
+                    <div class="img-wrap">
+                        <a href="index.htlm">BUDWIKS</a>
+                    </div>
+                    <div class="text d-none d-xl-block">
+                        АВТОРИЗОВАННЫЙ ТОРГОВЫЙ <br>
+                        ПАРТНЕР <span class="text-danger">REHAU</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg mb-5">
+                <div class="phone d-flex align-items-center justify-content-center">
+                    <div class="wrap">
+                        <div class="item">
+                            <a href="tel:+380997006515">+38 (099) 700 65 15</a>
+                        </div>
+                        <div class="item">
+                            <a href="tel:+380987006515">+38 (098) 700 65 15</a>
+                        </div>
+                        <div class="item">
+                            <a href="tel:+380937006515">+38 (093) 700 65 15</a>
+                        </div>
+                        <div class="item">
+                            <a href="tel:+380577523173">+38 (057) 752 31 73</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg mb-5">
+                <div class="address d-flex align-items-center justify-content-center">
+                    <address>
+                        <b>ул. Тобольская 42</b> <br>
+                        офис 21
+                    </address>
+                </div>
+            </div>
+            <div class="col-lg">
+                <button class="btn btn-danger"> Заказать замер</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="navBurger" role="navigation" id="navToggle"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="orderTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="title mb-4">Вызов замерщика</div>
+                <div class="descr mb-4">Заполните форму ниже</div>
+                <form action="" class="d-flex flex-column" id="callForm">
+                    <input type="text" name="user_name" placeholder="Имя" required class="mb-3">
+                    <input type="text" name="user_phone" placeholder="Номер телофона" required class="mb-4">
+                    <div class="text-center">
+                        <button class="btn btn-danger">Рассчитать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="thank" tabindex="-1" role="dialog" aria-labelledby="orderTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-5">
+            <div class="modal-body text-center">
+                <h2>Спасибо! <br> <br> С вами свяжутся в ближайшее время.</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="orderTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="title mb-4 text-center">Предварительный просчет</div>
+                <div class="descr mb-4 text-center">Заполните поля ниже и узнайте стоимость Вашего окна уже через 15 минут</div>
+                <form action="" class="d-flex flex-column" id="callForm">
+                    <input type="text" name="user_name" placeholder="Имя" required class="mb-3">
+                    <input type="text" name="user_phone" placeholder="Номер телофона" required class="mb-4 inputPhone">
+                    <div class="text-center">
+                        <button class="btn btn-danger">Узнать стоимость</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="more1" tabindex="-1" role="dialog" aria-labelledby="moreTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="title  mb-5">Окно на кухню</div>
+                <p>Каждой хозяйке важно, чтобы на кухне все было не только красиво, но и функционально.</p>
+                <p>Нижняя глухая часть окна позволит использовать ваш подоконник, как дополнительную рабочую поверхность, особенно учитывая, что подоконник с термостойким покрытием и более прочными стенками, за счет увеличенной толщины.</p>
+                <p>Две верхние створки — рабочие, что соответствует требованиям безопасности по установке оконных блоков выше 1-го этажа. Теперь вы сможете помыть окно без каких-либо затруднений!</p>
+                <p class="mb-4">Щелевое проветривание и энергосберегающее стекло — не даст запотевать стеклопакету в момент приготовления пищи.</p>
+                <ul class="mb-4">
+                    <p>Наше окно включает в себя:</p>
+                    <li>профильная система Rehau 60</li>
+                    <li>стеклопакет 32 мм с i-стеклом</li>
+                    <li>фурнитура Roto поворотно откидная</li>
+                    <li>подоконник Danke</li>
+                </ul>
+                <ul class="mb-5">
+                    <p>Мы рекомендуем к окну:</p>
+                    <li>москитная сетка</li>
+                    <li>рулонные шторы</li>
+                </ul>
+                <button class="btn btn-outline-danger payButton" data-toggle="modal" data-target="#pay">Узнать стоимость</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="more2" tabindex="-1" role="dialog" aria-labelledby="moreTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="title  mb-5">Окно в гостинную/спальню</div>
+                <p>Гостиная и спальня в одном помещении довольно распространенная и иногда вынужденная комбинация. Поэтому создание в этом пространстве одновременно уютной и теплой атмосферы, в сочетании с большим количеством света и эстетики, не всегда простая задача.</p>
+                <p>Использование полностью стеклянной балконной двери, окна без импостов и дополнительных соединений даст максимальное проникновение дневного света, а поворотно откидной механизм двери поможет безопасно проветривать помещение даже во время вашего сна.</p>
+                <p>Шумоизоляционный стеклопакет сохранит тишину и комфорт ночного времени суток, а энергосберегающее стекло повысит теплоизоляционные характеристики помещения.</p>
+                <p class="mb-4">Скрытые петли, стальная ручка и подоконник Danke дополнят общий интерьер комнаты и станут эстетическим акцентом вашего пространства.</p>
+                <ul class="mb-4">
+                    <p>Наше окно включает в себя:</p>
+                    <li>профильная система Rehau 72</li>
+                    <li>шумоизоляционный стеклопакет 40 мм с i-стеклом</li>
+                    <li>фурнитура Roto поворотно откидная со скрытыми петлями</li>
+                    <li>ручка дизайнерская, цвет — стальная</li>
+                    <li>подоконник Danke</li>
+                </ul>
+                <ul class="mb-5">
+                    <p>Мы рекомендуем к окну:</p>
+                    <li>москитная сетка</li>
+                    <li>рулонные шторы</li>
+                </ul>
+                <button class="btn btn-outline-danger payButton" data-toggle="modal" data-target="#pay">Узнать стоимость</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="more3" tabindex="-1" role="dialog" aria-labelledby="moreTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="title  mb-5">Окно в детскую</div>
+                <p>Детская комната — это целый мир для маленького человека. Это островок который должен быть одновременно красивым, функциональным и безопасным.</p>
+                <p class="mb-4">Именно поэтому для детской комнаты установлена откидно-поворотная фурнитура, детские замки на каждой створке, безопасная пленка на внутреннем стекле и цветной подоконник Кристаллит, который сможет выдержать почти любой эксперимент вашего ребенка.</p>
+                <ul class="mb-4">
+                    <p>Наше окно включает в себя:</p>
+                    <li>профильная система Rehau Euro 70</li>
+                    <li>стеклопакет 32 мм с i-стеклом и защитной пленкой на внутреннем стекле</li>
+                    <li>фурнитура Roto откидно-поворотная</li>
+                    <li>детский замок на створку — 2 шт.</li>
+                    <li>подоконник Danke цветной</li>
+                </ul>
+                <ul class="mb-5">
+                    <p>Мы рекомендуем к окну:</p>
+                    <li>стекло триплекс внутреннее</li>
+                    <li>москитная сетка</li>
+                    <li>рулонные шторы</li>
+                </ul>
+                <button class="btn btn-outline-danger payButton" data-toggle="modal" data-target="#pay">Узнать стоимость</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="big" tabindex="-1" role="dialog" aria-labelledby="moreTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="title  mb-4 text-center">Предварительный просчет</div>
+                <div class="descr mb-5 text-center">Заполните поля ниже и узнайте стоимость Вашего окна уже через 15 минут</div>
+                <form action="">
+                    <label for="width">Ширина окна (мм)</label>
+                    <input id="width" type="text" name="width" placeholder="1460" required class="mb-4">
+                    <label for="height">Высота окна (мм)</label>
+                    <input id="height" type="text" name="height" placeholder="1530" required class="mb-4">
+                    <label for="open">Количетсво открываний</label>
+                    <input id="height" type="text" name="open" placeholder="От 1 до 4" required class="mb-4">
+                    <label for="phone">Ваш телефон</label>
+                    <input id="phone" type="text" name="user_name" placeholder="+380999999999" required class="mb-3 inputPhone">
+                    <label for="name">Ваше имя</label>
+                    <input id="name" type="text" name="user_phone" placeholder="Имя" required class="mb-5">
+                    <div class="text-center mb-4">
+                        <button class="btn btn-danger">Узнать стоимость</button>
+                    </div>
+                    <p class="text-center">*я даю согласие на обработку моих персональных данных</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="puls">
+    <div class="title text-center mb-3">Укажите Ваш номер телефона</div>
+    <form action="" class="d-flex flex-column mb-3">
+        <input id="phone" type="text" name="user_name" placeholder="Ваш номер" required class="mb-3 inputPhone">
+        <button class="btn btn-danger">Перезвоните мне</button>
+    </form>
+    <p class="text-center">Вы можете позвонить нам: <br>
+        <a href="tel:0997006515">(099) 700 65 15</a>
+    </p>
+</div>

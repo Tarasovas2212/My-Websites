@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="img/favicon.ico">
+
+		<title>Добрый картон</title>
+
+		<style>
+			body{margin:0;font-family:'Roboto',sans-serif}
+			img{max-width:100%}
+			input:focus,button:focus{outline:none}
+			h2{margin:0;padding:0}
+			button{font-family:'Roboto',sans-serif}
+			.second-title{color:#313131;font-family:'Roboto-Bold';text-align:center;font-size:27px;text-transform:uppercase}
+			.button{background-color:#ff9d00;color:#fff;font-size:14px;border:1px solid transparent;padding:12px 20px;border-radius:5px;cursor:pointer}
+			.button-o{margin-right:12px;padding:12px 20px;background-color:transparent;color:rgba(55,55,55,0.5);border:1px solid rgba(55,55,55,0.5)}
+			.button img{vertical-align:middle}
+			.button_big{padding:20px;vertical-align:middle;font-size:15px;font-family:'Roboto-Medium';max-height:56px;line-height:15px}
+			.slider-arrow{position:absolute;top:0;height:78px;width:22px;border:1px solid #ff9d00;z-index:99}
+			.slider-arrow:hover{cursor:pointer}
+			.slider-arrow_left{left:0;background:#fff url(img/arrow-left.png) center no-repeat}
+			.slider-arrow_left:hover{background:#ff9d00 url(img/arrow-left_active.png) center no-repeat}
+			.slider-arrow_right{right:0;background:#fff url(img/arrow-right.png) center no-repeat}
+			.slider-arrow_right:hover{background:#ff9d00 url(img/arrow-right_active.png) center no-repeat}
+			.slider-feedback-arrow{position:absolute;top:0;height:100%;width:10px;z-index:100}
+			.slider-feedback-arrow:hover{cursor:pointer}
+			.slider-feedback-arrow_left{left:0;background:url(img/arrow-feed_left.png) center no-repeat}
+			.slider-feedback-arrow_right{right:0;background:url(img/arrow-feed_right.png) center no-repeat}
+			.dark-bg{position:relative;z-index:1}
+			.dark-bg::before{content:'';display:block;position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.6);z-index:-1}
+			.header{background-color:#f4f4f4}
+			.header-menu{width:100%;position:fixed;padding:15px 0;background-color:#373737;z-index:1000}
+			.header-menu ul{margin:0;padding:0;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}
+			.header-menu ul li{padding-right:27px;list-style:none;text-transform:uppercase;border-right:1px dotted rgba(255,255,255,0.2)}
+			.header-menu ul li:last-child{padding:0;border:none}
+			.header-menu ul li a{text-decoration:none;color:#fff;font-size:12px;font-weight:400}
+			.header-nav{padding-top:65px;padding-bottom:15px}
+			.header-logo{background:url(img/header/header-logo.png) center no-repeat;height:61px;width:191px}
+			.header-contacts{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+			.header-contacts__phone{color:#373737;font-weight:500;font-size:22px;padding:0 14px}
+			.header-contacts__phone a{text-decoration:none;color:#373737}
+			.header-contacts__phone:first-child{border-right:1px solid #cfcfd0}
+			.header-contacts__phones{display:-webkit-box;display:-ms-flexbox;display:flex}
+			.header-contacts__btn{font-size:14px;font-weight:500;line-height:22px;max-height:45px}
+			@-webkit-keyframes main-img {
+			from{margin-bottom:-200px;opacity:0;-webkit-transform:rotateY(0deg);transform:rotateY(0deg)}
+			25%{-webkit-transform:rotateY(30deg);transform:rotateY(30deg)}
+			50%{-webkit-transform:rotateY(60deg);transform:rotateY(60deg)}
+			75%{-webkit-transform:rotateY(90deg);transform:rotateY(90deg)}
+			to{margin-bottom:0;opacity:1;-webkit-transform:rotateY(0deg);transform:rotateY(0deg)}
+			}
+			@keyframes main-img {
+			from{margin-bottom:-200px;opacity:0;-webkit-transform:rotateY(0deg);transform:rotateY(0deg)}
+			25%{-webkit-transform:rotateY(30deg);transform:rotateY(30deg)}
+			50%{-webkit-transform:rotateY(60deg);transform:rotateY(60deg)}
+			75%{-webkit-transform:rotateY(90deg);transform:rotateY(90deg)}
+			to{margin-bottom:0;opacity:1;-webkit-transform:rotateY(0deg);transform:rotateY(0deg)}
+			}
+			.animate{-webkit-animation-name:main-img;animation-name:main-img;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-delay:.4;animation-delay:.4s;-webkit-animation-timing-function:linear;animation-timing-function:linear}
+			.main{position:relative;padding-top:65px;padding-bottom:60px;background:#373737 url(img/main/main-bg.jpg) center no-repeat;background-size:cover;color:#fff}
+			.main-img{position:relative}
+			.main-img::before{content:''!important;position:absolute;width:390px;height:390px;left:50%;margin-left:-195px;border:1px solid #fff;border-radius:50%;z-index:-1}
+			.main-img::after{background:url(img/main/main-logo.png) no-repeat;height:50px;width:60px;content:'';position:absolute;top:310px;left:87px}
+			.main-text__title{margin-bottom:19px;font-size:41px;font-family:'Roboto-Bold'}
+			.main-text__subtitle{margin-bottom:27px;font-size:28px;font-family:'Roboto-Light'}
+			.main-text__form{padding:20px 27px;background-color:rgba(255,255,255,0.2)}
+			.form{display:-webkit-box;display:-ms-flexbox;display:flex;margin-bottom:12px}
+			.form-title{margin-bottom:19px;padding-right:87px;font-size:19px;font-family:'Roboto-Light';line-height:30px}
+			.form-title__important{font-family:'Roboto-Bold';text-transform:uppercase;display:block}
+			.form-input{margin-right:10px;padding:19px 80px 19px 19px;border-radius:4px;font-size:14px;max-height:56px;min-width:300px;border:none;vertical-align:middle;color:#373737;font-weight:300}
+			.form-small{padding-left:15px;font-size:14px;font-family:'Roboto-Light'}
+			.main2{background:#373737 url(img/main/main-bg2.jpg) center no-repeat;background-size:cover}
+			.slider-main{position:absolute;top:50%;margin-top:-39px;height:78px;width:22px;border:1px solid transparent;z-index:120}
+			.slider-main:hover{cursor:pointer}
+			.slider-main_left{left:0;background:transparent url(img/arrow-feed_left.png) center no-repeat}
+			.slider-main_left:hover{background:#ff9d00 url(img/arrow-left_active.png) center no-repeat}
+			.slider-main_right{right:0;background:transparent url(img/arrow-feed_right.png) center no-repeat}
+			.slider-main_right:hover{background:#ff9d00 url(img/arrow-right_active.png) center no-repeat}
+		</style>
+
+	</head>
+	<body>
+
+		<header class="header">
+			<div class="header-menu">
+				<div class="container">
+					<ul>
+						<li><a href="#features">О компании</a></li>   
+						<li><a href="#features">преимущества</a></li>
+						<li><a href="#production">производство</a></li>
+						<li><a href="#products">склад</a></li>
+						<li><a href="#products">Продукция</a></li>
+						<li><a href="#customers">наши клиенты</a></li>
+						<li><a href="#feedback">Сертификаты</a></li>
+						<li><a href="#feedback">Отзывы</a></li>
+						<li><a href="#contacts">контакты</a></li>
+					</ul>
+				</div>
+				<!-- /.container -->
+			</div>
+			<!-- /.header-menu -->
+			<div class="container">
+				<div class="header-nav">
+					<div class="row justify-content-end align-items-center">
+						<div class="col-3 col-md-4">
+							<a class="header-menu__link" href="#">
+								<span></span>
+							</a>
+							<a href="#"><div class="header-logo"></div></a>
+						</div>
+						<!-- /.col-4 -->
+						<div class="col-9 col-md-8">
+							<div class="header-contacts">
+								<div class="header-contacts__phones">
+									<div class="header-contacts__phone"><a href="tel:+73472715428">8 (347) <span>271-54-28</span></a></div>
+									<div class="header-contacts__phone"><a href="tel:+79373633000">8 (937) <span>363-30-00</span></a></div>
+								</div>
+								<button onclick="yaCounter48820835.reachGoal('topBtn'); return true;" onsubmit="ga('send', 'event', 'form', 'submit')" class="header-contacts__btn button">
+									<img src="img/header/header-phone.png" alt="Телефон">
+									<span class="hidden-mobile">Заказать звонок</span>
+								</button>
+							</div>
+							<!-- /.header-contacts -->
+						</div>
+						<!-- /.col-8 --> 
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.header-nav -->
+			</div>
+			<!-- /.container -->
+		</header>
+		<!-- /.header -->
+
+		<div class="main-wrap">
+			<section class="main dark-bg">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-12 col-lg-5">
+							<div class="main-img hidden-mobile animate">
+								<img src="img/main/main-img.png" alt="Картон">
+							</div>
+						<!-- /.main-img -->
+						</div>
+						<!-- /.col-5 -->
+						<div class="col-12 col-lg-7">
+							<div class="main-text">
+								<h1 class="main-text__title">
+									<span>Производство упаковки из гофрокартона</span>
+								</h1>
+								<!-- /.main-text__title -->
+								<div class="main-text__subtitle">
+									с доставкой по всей России
+								</div>
+								<!-- /.main-text__subtitle -->
+								<div class="main-text__form">
+									<div class="form-title">
+										Получите индивидуальное предложение
+										на производство и поставку гофропродукции
+										<span class="form-title__important">Образцы упаковки бесплатно!</span>
+									</div>
+									<!-- /.form-title -->
+									<form class="form" id="form_main" method="POST" onsubmit="yaCounter48820835.reachGoal('sendForm'); return true;">
+										<input class="form-input" type="tel" name="user_phone" required="" placeholder="Введите номер телефона">
+										<button class="button button_big" type="submit">Оставить заявку!</button>
+									</form>	
+									<!-- /.form -->
+									<small class="form-small">*Минимальный заказ 500шт</small>
+								</div>
+								<!-- /.main-text__form -->
+							</div>
+							<!-- /.main-text -->
+						</div>
+						<!-- /.col-7 -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container -->
+			</section>
+			<!-- /.main -->
+			<section class="main main2 dark-bg">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-12 col-lg-5">
+							<div class="main-img hidden-mobile animate">
+								<img src="img/main/main-img2.png" alt="Картон">
+							</div>
+						<!-- /.main-img -->
+						</div>
+						<!-- /.col-5 -->
+						<div class="col-12 col-lg-7">
+							<div class="main-text">
+								<h1 class="main-text__title">
+									<span>Производство гофрокартона из упаковки</span>
+								</h1>
+								<!-- /.main-text__title -->
+								<div class="main-text__subtitle">
+									с доставкой по всей России
+								</div>
+								<!-- /.main-text__subtitle -->
+								<div class="main-text__form">
+									<div class="form-title">
+										Получите индивидуальное предложение
+										на производство и поставку гофропродукции
+										<span class="form-title__important">Образцы упаковки бесплатно!</span>
+									</div>
+									<!-- /.form-title -->
+									<form class="form" id="formMain2" onsubmit="yaCounter48820835.reachGoal('sendForm'); return true;">
+										<input class="form-input" type="tel" name="user_phone" required="" placeholder="Введите номер телефона">
+										<button class="button button_big" type="submit">Оставить заявку!</button>
+									</form>
+									<!-- /.form -->
+									<small class="form-small">*Минимальный заказ 500шт</small>
+								</div>
+								<!-- /.main-text__form -->
+							</div>
+							<!-- /.main-text -->
+						</div>
+						<!-- /.col-7 -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container -->
+			</section>
+			<!-- /.main2 -->
+		</div>
+		<!-- /.main-main -->
+
+		<div class="overlay">
+			<div class="popup">
+				<div class="popup-title">
+					Форма обратной связи
+				</div>
+				<!-- /.popup-title -->
+				<div class="popup-close">&times;</div>
+				<!-- /.popup-close -->
+				<form class="popup-form" id="popup-form" onsubmit="yaCounter48820835.reachGoal('sendForm'); return true;">
+					<div class="popup-form__title">
+						Получите индивидуальное предложение <br>
+						<span>на производство и поставку изделий</span>
+					</div>
+					<!-- /.popup-form__title -->
+					<label class="popup-form__label">
+						Введите ваш номер телефона:
+					</label>
+					<input class="popup-form__input" type="tel" name="user_phone" required="" placeholder="Введите номер телефона">
+					<button class="button popup-form__btn">
+						Оставить заявку!
+					</button>
+					<div class="popup-form__note">
+						*Минимальный заказ 500шт
+					</div>
+				</form>
+				<!-- /.popup-form -->
+			</div>
+			<!-- /.popup -->
+		</div>
+		<!-- /.overlay -->
+
+		<div class="modal-window">
+			<div class="popup2">
+				<div class="popup2-title">
+					Обратная звязь
+				</div>
+				<!-- /.popup-title -->
+				<div class="popup2-close">&times;</div>
+				<!-- /.popup-close -->
+				<div class="popup2-text">
+					<p>Спасибо, вы сделали отличный выбор!</p>
+					<button class="button modal-window_btn">OK</button>
+				</div>
+				<!-- /.popup-text -->
+			</div>
+			<!-- /.popup -->
+		</div>
+		<!-- /.modal-window -->
+
+		<section class="features" id="features">
+			<div class="container">
+
+				<div class="features-numbers">
+					<div class="features-numbers-block wow pulse">
+						<h2 class="features-numbers-block__title">
+							5 лет
+						</h2>
+						<!-- /.features-numbers-block__title -->
+						<div class="features-numbers-block__text">
+							На рынке изделий из гофрокартона
+						</div>
+						<!-- /.features-numbers-block__text -->
+					</div>
+					<!-- /.features-numbers-block -->
+
+					<div class="features-numbers-block wow pulse" data-wow-delay="0.4s">
+						<div class="features-numbers-block__title">
+							до 5 000 000 м<sup>2</sup>
+						</div>
+						<!-- /.features-numbers-block__title -->
+						<div class="features-numbers-block__text">
+							Ежемесячный объем производства гофрокартона
+						</div>
+						<!-- /.features-numbers-block__text -->
+					</div>
+					<!-- /.features-numbers-block -->
+
+					<div class="features-numbers-block wow pulse" data-wow-delay="0.8s">
+						<div class="features-numbers-block__title">
+							4 000 м<sup>2</sup>
+						</div>
+						<!-- /.features-numbers-block__title -->
+						<div class="features-numbers-block__text">
+							Площадь склада
+						</div>
+						<!-- /.features-numbers-block__text -->
+					</div>
+					<!-- /.features-numbers-block -->
+				</div>
+				<!-- /.features-numbers -->
+
+				<div class="features-blocks">
+					<div class="features-block wow fadeInLeft">
+						<div class="features-block__img"><img src="img/features/icon-1.png" alt="Производство"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Производство
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								4 технологические линии способны выполнить любой заказ любой сложности
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+
+					<div class="features-block wow fadeInDown" data-wow-delay="0.2s">
+						<div class="features-block__img"><img src="img/features/icon-2.png" alt="Бесплатные образцы"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Бесплатные образцы
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								Бесплатно делаем образцы гофроупаковки - это помогает заранее увидеть упаковку
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+
+					<div class="features-block wow fadeInRight" data-wow-delay="0.4s">
+						<div class="features-block__img"><img src="img/features/icon-3.png" alt="Стабильное качество"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Стабильное качество
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								Собственная лаборатория контролирует качество на каждом этапе производства
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+
+					<div class="features-block wow fadeInLeft" data-wow-delay="1s">
+						<div class="features-block__img"><img src="img/features/icon-4.png" alt="Страховой запас"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Страховой запас
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								Можем хранить запас гофропродукции на своих складах и поставлять его партиями
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+
+					<div class="features-block wow fadeInUp" data-wow-delay="0.8s">
+						<div class="features-block__img"><img src="img/features/icon-5.png" alt="Флексопечать"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Флексопечать
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								Возможно нанесение вашего  логотипа, текста или манипуляционных знаков
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+					
+					<div class="features-block wow fadeInRight" data-wow-delay="0.6s">
+						<div class="features-block__img"><img src="img/features/icon-6.png" alt="Гидрофобные добавки"></div>
+						<!-- /.features-block__img -->
+						<div class="features-block-text">
+							<div class="features-block-text__title">
+								Гидрофобные добавки
+							</div>
+							<!-- /.features-block-text__title -->
+							<div class="features-block-text__descr">
+								На производстве реализована технология, которая позволяет гофрокартону стать прочнее
+							</div>
+							<!-- /.features-block-text__descr -->
+						</div>
+						<!-- /.features-block-text -->
+					</div>
+					<!-- /.features-block -->
+				</div>
+				<!-- /.features-blocks -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.features -->
+
+		<section class="products" id="products">
+			<div class="container">
+				<h2 class="second-title">
+					наша Продукция
+				</h2>
+				<!-- /.second-title -->
+				<div class="products-blocks">
+					<div class="row align-items-end">
+
+						<div class="col-md-6">
+							<div class="product-block">
+								<div class="product-block__img"><img src="img/products/img-1.png" alt=""></div>
+								<!-- /.product-block__img -->
+								<div class="product-block__text">
+									Гофрокороб 4-х клапанный
+								</div>
+								<!-- /.product-block__text -->
+								<div class="product-block__buttons">
+									<button class="button button-o btn_info">Подробнее</button>
+									<button class="button btn_info">Получить расчет</button>
+								</div>
+								<!-- /.product-block__buttons -->
+							</div>
+							<!-- /.product-block -->
+						</div>
+						<!-- /.col-xl-6 -->
+
+						<div class="col-md-6">
+							<div class="product-block">
+								<div class="product-block__img"><img src="img/products/img-2.png" alt=""></div>
+								<!-- /.product-block__img -->
+								<div class="product-block__text">
+									Гофролоток
+								</div>
+								<!-- /.product-block__text -->
+								<div class="product-block__buttons">
+									<button class="button button-o btn_info">Подробнее</button>
+									<button class="button btn_info">Получить расчет</button>
+								</div>
+								<!-- /.product-block__buttons -->
+							</div>
+							<!-- /.product-block -->
+						</div>
+						<!-- /.col-xl-6 -->
+					</div>
+					<!-- /.row -->
+					<div class="row align-items-end">
+
+						<div class="col-md-6">
+							<div class="product-block">
+								<div class="product-block__img"><img src="img/products/img-3.png" alt=""></div>
+								<!-- /.product-block__img -->
+								<div class="product-block__text">
+									Гофрокороб самосборный (сложная высечка)
+								</div>
+								<!-- /.product-block__text -->
+								<div class="product-block__buttons">
+									<button class="button button-o btn_info">Подробнее</button>
+									<button class="button btn_info">Получить расчет</button>
+								</div>
+								<!-- /.product-block__buttons -->
+							</div>
+							<!-- /.product-block -->
+						</div>
+						<!-- /.col-xl-6 -->
+
+						<div class="col-md-6">
+							<div class="product-block">
+								<div class="product-block__img"><img src="img/products/img-4.png" alt=""></div>
+								<!-- /.product-block__img -->
+								<div class="product-block__text">
+									Листовой гофрокартон
+								</div>
+								<!-- /.product-block__text -->
+								<div class="product-block__buttons">
+									<button class="button button-o btn_info">Подробнее</button>
+									<button class="button btn_info">Получить расчет</button>
+								</div>
+								<!-- /.product-block__buttons -->
+							</div>
+							<!-- /.product-block -->
+						</div>
+						<!-- /.col-xl-6 -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.products-blocks -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.products -->
+
+		<section class="offer dark-bg">
+			<div class="container">
+				<h2 class="offer-title">
+					Получите индивидуальное предложение
+					<span class="offer-title_small">на производство и поставку изделий</span>
+				</h2>
+				<!-- /.offer-title -->
+				<form class="offer-form" id="offer-form" onsubmit="yaCounter48820835.reachGoal('sendForm'); return true;">
+					<label class="offer-form__label">Введите ваш номер телефона:</label>
+					<input class="form-input offer-form__input" type="tel" name="user_phone" required="" placeholder="Введите номер телефона">
+					<button class="button offer-form__btn">Оставить заявку!</button>
+					<small class="offer-form__small">*Минимальный заказ 500шт</small>
+				</form>
+				<!-- /.offer-form -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.offer -->
+
+		<div class="production" id="production">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 order-last col-lg-7 order-lg-first">
+
+						<div class="production-slider_top">
+							<img src="img/production/img-1.jpg" alt="">
+							<img src="img/production/img-2.jpg" alt="">
+							<img src="img/production/img-3.jpg" alt="">
+							<img src="img/production/img-4.jpg" alt="">
+							<img src="img/production/img-5.jpg" alt="">
+						</div>
+						<!-- /.production-slider_top -->
+
+						<div class="production-slider_bottom">
+							<div class="production-slider_bottom-item">
+								<img src="img/production/img-1.jpg" alt="">
+							</div>
+							<div class="production-slider_bottom-item">
+								<img src="img/production/img-2.jpg" alt="">
+							</div>
+							<div class="production-slider_bottom-item">
+								<img src="img/production/img-3.jpg" alt="">
+							</div>
+							<div class="production-slider_bottom-item">
+								<img src="img/production/img-4.jpg" alt="">
+							</div>
+							<div class="production-slider_bottom-item">
+								<img src="img/production/img-5.jpg" alt="">
+							</div>
+						</div>
+						<!-- /.production-slider_bottom -->
+
+					</div>
+					<!-- /.col7 -->
+					<div class="col-12 col-lg-5">
+						<div class="production-text">
+							<div class="production-text__title">
+								Производство
+							</div>
+							<!-- /.production-title -->
+							<div class="production-text__descr">
+								<p>Современное оборудование позволяет производить до 5 миллионов квадратных метров гофрокартона ежемесячно. Гофрокороба и лотки производятся по ГОСТу или чертежам заказчика.</p>
+							<p>	Досконально прорабатываем конструкции коробов и составы сырья, учитывая условия хранения, транспортировки и производства вашей продукции.</p>
+								<p>Возможно нанесение цветной флексопечати на поверхность коробов.</p>
+							</div>
+							<!-- /.production-descr -->
+						</div>
+						<!-- /.production-text -->
+					</div>
+					<!-- /.col-5 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /.production -->
+
+		<section class="customers" id="customers">
+			<div class="container">	
+				<h2 class="second-title">
+					Наши клиенты
+				</h2>
+				<!-- /.second-title -->
+				<div class="customers-blocks">
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-1.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-2.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-3.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-4.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-5.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-6.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-7.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-8.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-9.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-10.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-11.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+					<div class="customers-block">
+						<div class="customers-block__img"><a href="#"><img src="img/customers/img-12.png" alt=""></a></div>
+						<!-- /.customers-block__img -->
+					</div>
+					<!-- /.customers-block -->
+				</div>
+				<!-- /.customers-blocks -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.customers -->
+
+		<section class="feedback" id="feedback">
+			<div class="container">
+				<h2 class="second-title">Отзывы о сотрудничестве</h2>
+				<!-- /.second-title -->
+				<div class="feedback-slider">
+					<div class="feedback-slider__item"><img src="img/feedback/1.jpg" alt=""></div>
+					<div class="feedback-slider__item"><img src="img/feedback/2.jpg" alt=""></div>
+					<div class="feedback-slider__item"><img src="img/feedback/3.jpg" alt=""></div>
+					<div class="feedback-slider__item"><img src="img/feedback/1.jpg" alt=""></div>
+					<div class="feedback-slider__item"><img src="img/feedback/2.jpg" alt=""></div>
+				</div>
+				<!-- /.feedback-slider -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.feedback -->
+	
+			<div class="contacts" id="contacts">
+				<div class="container">
+					<div class="contacts-wrap"><div class="contacts-content">
+							<div class="contacts-icon">
+								<img src="img/map/loc.svg" alt="Иконка Локализации">
+								<img src="img/map/smartphone.svg" alt="Иконка телефона">
+								<img src="img/map/email.svg" alt="Иконка почты">
+							</div>
+							<div class="contacts-blocks">
+								<div class="contacts-blocks-title">контакты</div>
+								<!-- /.contacts-blocks-title -->
+								<div class="contacts-block">
+									<div class="contacts-block__title">Адрес офиса</div>
+									<div class="contacts-block__text">г. Уфа, Проспект октября, 46</div>
+								</div>
+								<!-- /.contacts-block -->
+								<div class="contacts-block">
+									<div class="contacts-block__title">Адрес склада</div>
+									<div class="contacts-block__text">г. Уфа, ул. Майкопская, 65/2</div>
+								</div>
+								<!-- /.contacts-block -->
+								<div class="contacts-block">
+									<div class="contacts-block__title">Тел. отдела продаж:</div>
+									<div class="contacts-block__text">
+										<a href="tel:+73472715428">8 (347) 271-54-28</a>
+										<a href="tel:+79373633000">8 (937) 363-30-00</a>
+									</div>
+									<button class="button contacts-block_btn">Заказать звонок</button>
+								</div>
+								<!-- /.contacts-block -->
+								<div class="contacts-block">
+									<div class="contacts-block__title">Е-mail</div>
+									<div class="contacts-block__text"><a href="mailto:urals.karton@gmail.com">urals.karton@gmail.com</a></div>
+								</div>
+								<!-- /.contacts-block -->
+							</div>
+							<!-- /.contacts-blocks -->
+						</div>
+						<!-- /.contacts-content --></div>
+					<!-- /.contacts-wrap -->
+				</div>
+				<!-- /.container -->
+				<div class="map" id="map"></div>
+			</div>
+			<!-- /.contacts -->
+
+			<footer class="footer">
+				<div class="footer-text">
+					© www.gofra-ural.ru 2016, все права защищены
+				</div>
+				<!-- /.footer-text -->
+			</footer>
+			<!-- /.footer -->
+			
+			<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic" rel="stylesheet"> 
+
+			<!-- Bootstrap core CSS -->
+			<link href="css/bootstrap-grid.min.css" rel="stylesheet">
+
+			<!-- Animation  -->
+			<link rel="stylesheet" type="text/css" href="css/animate.css">
+
+			<link rel="stylesheet" href="slick/slick.css">
+			<link rel="stylesheet" href="slick/slick-theme.css">
+
+			<!-- Custom styles for this template -->
+			<link href="css/style.css" rel="stylesheet">
+			
+			<!-- Yandex.Metrika counter --> <script> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter48820835 = new Ya.Metrika2({ id:48820835, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks2"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/48820835" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118968862-1"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-118968862-1');
+			</script>
+			
+
+	<script >
+		function initMap() {
+
+			var element = document.getElementById('map');
+
+			var options = {
+				zoom: 16,
+				center: {lat: 54.752835, lng: 56.002105}
+			};
+
+			var myMap = new google.maps.Map(element, options);
+
+			var myMarker = new google.maps.Marker({
+				position: {lat: 54.752835, lng: 56.002105},
+				map: myMap,
+				icon: 'img/map/marker.png'
+			});
+
+			var infoWindow = new google.maps.InfoWindow({
+				content: '<h1>Добрый Картон</h1>'
+			});
+
+			myMarker.addListener('click', function(){
+					infoWindow.open(myMap, myMarker);
+			});
+		
+		}
+	</script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src=js/jQuery.min.js>')</script>
+		<script src="js/jquery.maskedinput.js"></script>
+		<script src="js/wow.min.js"></script>
+		<script src="slick/slick.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCADRxvf6WNb3lNdcgt2_4K-woW-b7YHvc&callback=initMap"></script>
+		<script src="js/main.js"></script>
+
+
+		</body>
+	</html>
